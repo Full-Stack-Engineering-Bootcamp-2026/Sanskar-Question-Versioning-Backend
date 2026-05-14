@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, Generated, } from "typeorm";
 import { Question } from "../../Question/entities/question.entity";
 import { QuestionOption } from "../../QuestionOption/entities/question-option.entity";
 import { AttemptAnswer } from "../../AttemptAnswer/entities/attempt-answer.entity";
@@ -12,6 +12,10 @@ enum AnswerType {
 export class QuestionVersion {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ unique: true })
+  @Generated("uuid")
+  publicId: string;
 
   @ManyToOne(() => Question, (question) => question.versions, {
     onDelete: "CASCADE",

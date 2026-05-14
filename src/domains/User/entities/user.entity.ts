@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, Generated } from "typeorm";
 import { Question } from "../../Question/entities/question.entity";
 import { Quiz } from "../../Quiz/entities/quiz.entity";
 import { QuizAttempt } from "../../QuizAttempt/entities/quiz-attempt.entity";
 
-enum UserRole {
+export enum UserRole {
   ADMIN = "ADMIN",
   USER = "USER"
 }
@@ -11,6 +11,10 @@ enum UserRole {
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ unique: true })
+  @Generated("uuid")
+  publicId: string;
 
   @Column()
   name: string;

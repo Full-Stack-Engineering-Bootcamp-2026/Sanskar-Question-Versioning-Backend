@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, Column, CreateDateColumn, } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, Column, CreateDateColumn, Generated, } from "typeorm";
 import { Quiz } from "../../Quiz/entities/quiz.entity";
 import { User } from "../../User/entities/user.entity";
 import { AttemptAnswer } from "../../AttemptAnswer/entities/attempt-answer.entity";
@@ -11,6 +11,10 @@ enum AttemptStatus {
 export class QuizAttempt {
   @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @Column({ unique: true })
+  @Generated("uuid")
+  publicId: string;
 
   @ManyToOne(() => Quiz, (quiz) => quiz.attempts)
   quiz: Quiz;

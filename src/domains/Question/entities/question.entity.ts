@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn, Column, Generated } from "typeorm";
 import { User } from "../../User/entities/user.entity";
 import { QuestionVersion } from "../../QuestionVersion/entities/question-version.entity";
 import { QuizQuestion } from "../../QuizQuestion/entities/quiz-question.entity";
@@ -7,6 +7,10 @@ import { QuizQuestion } from "../../QuizQuestion/entities/quiz-question.entity";
 export class Question {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ unique: true })
+  @Generated("uuid")
+  publicId: string;
 
   @ManyToOne(() => User, (user) => user.questions)
   createdBy: User;

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, Generated, } from "typeorm";
 import { User } from "../../User/entities/user.entity";
 import { QuizQuestion } from "../../QuizQuestion/entities/quiz-question.entity";
 import { QuizAttempt } from "../../QuizAttempt/entities/quiz-attempt.entity";
@@ -7,6 +7,10 @@ import { QuizAttempt } from "../../QuizAttempt/entities/quiz-attempt.entity";
 export class Quiz {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ unique: true })
+  @Generated("uuid")
+  publicId: string;
 
   @Column()
   title: string;
