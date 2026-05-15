@@ -20,4 +20,7 @@ export class QuizQuestion {
     onDelete: "CASCADE",
   })
   question: Question;
+
+  @Column()
+  orderIndex: number;
 }

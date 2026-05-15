@@ -28,4 +28,9 @@ export class Quiz {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @Column({
+    default: false,
+  })
+  isDeleted: boolean;
 }
