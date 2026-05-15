@@ -6,6 +6,7 @@ import { requireRole } from "../../../common/middleware/authorize.middleware";
 import { UserRole } from "../../User/entities/user.entity";
 import { validate } from "../../../common/middleware/validate.middleware";
 import { createQuestionSchema } from "../validator/question.validator";
+import { asyncHandler } from "../../../common/utils/async-handler";
 
 @Service()
 export class QuestionRoutes {
@@ -24,7 +25,7 @@ export class QuestionRoutes {
       authenticate,
       requireRole(UserRole.ADMIN),
       validate(createQuestionSchema),
-      this.controller.createQuestion.bind(this.controller)
+      asyncHandler(this.controller.createQuestion.bind(this.controller))
     )
     this.router.put(
       "/:publicId",
@@ -37,7 +38,7 @@ export class QuestionRoutes {
     this.router.get(
       "/",
       authenticate,
-      this.controller.getQuestions.bind(this.controller)
+      asyncHandler(this.controller.getQuestions.bind(this.controller))
     );
 
     this.router.get(
