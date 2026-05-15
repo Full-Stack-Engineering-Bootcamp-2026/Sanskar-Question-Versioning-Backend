@@ -9,8 +9,8 @@ enum AttemptStatus {
 
 @Entity("quiz_attempts")
 export class QuizAttempt {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ unique: true })
   @Generated("uuid")
@@ -32,11 +32,6 @@ export class QuizAttempt {
   })
   status: AttemptStatus;
 
-  @Column({ type: "json" })
-  questionVersionMap: {
-    questionId: string;
-    versionId: string;
-  }[];
 
   @OneToMany(() => AttemptAnswer, (answer) => answer.attempt, {
     cascade: true,
