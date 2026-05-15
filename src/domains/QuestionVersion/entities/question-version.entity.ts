@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDat
 import { Question } from "../../Question/entities/question.entity";
 import { QuestionOption } from "../../QuestionOption/entities/question-option.entity";
 import { AttemptAnswer } from "../../AttemptAnswer/entities/attempt-answer.entity";
-enum AnswerType {
+export enum AnswerType {
   SINGLE_SELECT = "SINGLE_SELECT",
   MULTI_SELECT = "MULTI_SELECT",
   TEXT = "TEXT",

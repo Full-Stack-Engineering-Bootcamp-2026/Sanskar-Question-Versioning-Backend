@@ -1,9 +1,10 @@
 import { Request } from "express";
-import { UserRole } from "../../domains/user/entities/user.entity";
+import { UserRole } from "../../domains/User/entities/user.entity";
+
 
 export interface AuthRequest extends Request {
   user?: {
-    userId: number;
+    id: number;
     email: string;
     role: UserRole;
   };

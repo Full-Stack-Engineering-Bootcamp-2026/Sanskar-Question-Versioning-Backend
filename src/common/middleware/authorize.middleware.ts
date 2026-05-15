@@ -5,8 +5,9 @@ import {
   getAccessDeniedMessage,
   getAllRolesRequiredMessage,
 } from "../constants/auth-error-messages.constants";
-import { UserRole } from "../../domains/user/entities/user.entity";
+
 import { AuthRequest } from "../interfaces/auth-request.interface";
+import { UserRole } from "../../domains/User/entities/user.entity";
 
 /**
  * =============================================================================

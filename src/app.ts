@@ -7,6 +7,7 @@ import { success, failure } from "./Http_Response/response";
 import { errorHandler, notFoundHandler } from "./common/middleware/error-handler.middleware";
 import { UserRoutes } from "./domains/User/routes/user.routes";
 import Container from "typedi";
+import { QuestionRoutes } from "./domains/Question/routes/question.routes";
 dotenv.config();
 
 class Application {
@@ -49,7 +50,9 @@ class Application {
     });
 
     const userRoutes = Container.get(UserRoutes)
-    this.app.use("/api/users", userRoutes.getRoutes())
+    const questionRoutes = Container.get(QuestionRoutes);
+    this.app.use("/api/users", userRoutes.getRoutes());
+    this.app.use("/api/questions", questionRoutes.getRoutes());
     this.app.use(notFoundHandler);
     this.app.use(errorHandler);
   }
