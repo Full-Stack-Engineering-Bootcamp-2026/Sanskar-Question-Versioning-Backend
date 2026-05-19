@@ -31,9 +31,12 @@ export class QuestionService {
   public async getQuestions() {
     const questions = await this.repository.getAllQuestions();
     return questions.map(question => {
-      const latestVersion = question.versions.sort(
+      const latestVersion = [...question.versions].sort(
         (a, b) => b.versionNumber - a.versionNumber
       )[0]
+      if (!latestVersion) {
+        return null;
+      }
       return {
         publicId: question.publicId,
         questionText: latestVersion.questionText,
