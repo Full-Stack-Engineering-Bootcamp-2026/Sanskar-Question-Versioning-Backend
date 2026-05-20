@@ -30,6 +30,26 @@ export class QuizService {
     return this.repository.getAllQuizzes();
   }
 
+
+  public async deleteQuiz(
+    publicId: string
+  ) {
+
+    const quiz =
+      await this.repository.findQuizByPublicId(
+        publicId
+      )
+
+    if (!quiz) {
+      throw new NotFoundException(
+        "Quiz not found"
+      )
+    }
+
+    await this.repository.softDeleteQuiz(
+      quiz.id
+    )
+  }
   public async getQuizByPublicId(publicId: string) {
     const quiz = await this.repository.findQuizByPublicId(publicId);
     if (!quiz)

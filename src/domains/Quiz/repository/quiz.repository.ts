@@ -105,4 +105,19 @@ export class QuizRepository {
     })
   }
 
+  public async softDeleteQuiz(
+    quizId: number
+  ) {
+
+    await this.quizRepository.update(
+      {
+        id: quizId,
+      },
+
+      {
+        isDeleted: true,
+      }
+    )
+  }
+
 }

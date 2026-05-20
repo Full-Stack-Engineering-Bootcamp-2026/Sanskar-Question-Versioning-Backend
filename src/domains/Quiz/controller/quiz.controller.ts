@@ -37,4 +37,19 @@ export class QuizController {
       data: quiz
     })
   }
+
+  public async deleteQuiz(
+    req: Request<{ publicId: string }>,
+    res: Response
+  ) {
+
+    await this.service.deleteQuiz(
+      req.params.publicId
+    )
+
+    return generateResponse(res, {
+      statusCode: HttpStatus.OK,
+      message: "Quiz deleted successfully",
+    })
+  }
 }

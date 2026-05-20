@@ -40,5 +40,12 @@ export class QuizRoutes {
       authenticate,
       asyncHandler(this.controller.getQuizByPublicId.bind(this.controller))
     );
+
+    this.router.patch(
+      "/:publicId",
+      authenticate,
+      requireRole(UserRole.ADMIN),
+      this.controller.deleteQuiz.bind(this.controller)
+    )
   }
 }
