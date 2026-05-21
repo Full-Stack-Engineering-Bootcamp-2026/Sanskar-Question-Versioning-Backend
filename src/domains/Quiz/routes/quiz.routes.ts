@@ -4,7 +4,7 @@ import { QuizController } from '../controller/quiz.controller';
 import { authenticate } from '../../../common/middleware/authenticate.middleware';
 import { validate } from '../../../common/middleware/validate.middleware';
 
-import { createQuizSchema } from '../validator/quiz.validator';
+import { createQuizSchema, updateQuizSchema } from '../validator/quiz.validator';
 import { requireRole } from '../../../common/middleware/authorize.middleware';
 import { UserRole } from '../../User/entities/user.entity';
 import { asyncHandler } from '../../../common/utils/async-handler';
@@ -41,6 +41,13 @@ export class QuizRoutes {
       asyncHandler(this.controller.getQuizByPublicId.bind(this.controller))
     );
 
+    this.router.put(
+      "/:publicId",
+      authenticate,
+      requireRole(UserRole.ADMIN),
+      validate(updateQuizSchema),
+      this.controller.updateQuiz.bind(this.controller)
+    )
     this.router.patch(
       "/:publicId",
       authenticate,

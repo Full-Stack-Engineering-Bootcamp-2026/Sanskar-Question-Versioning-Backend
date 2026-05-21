@@ -119,5 +119,32 @@ export class QuizRepository {
       }
     )
   }
+  public async updateQuiz(
+    quizId: number,
+    data: {
+      title: string
+    }
+  ) {
+
+    await this.quizRepository.update(
+      {
+        id: quizId,
+      },
+
+      {
+        title: data.title,
+      }
+    )
+  }
+  public async deleteQuizQuestionMappings(
+    quizId: number
+  ) {
+
+    await this.quizQuestionRepository.delete({
+      quiz: {
+        id: quizId,
+      },
+    })
+  }
 
 }

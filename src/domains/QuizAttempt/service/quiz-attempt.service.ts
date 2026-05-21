@@ -41,7 +41,35 @@ export class QuizAttemptService {
         answerType: questionVersion.answerType,
         options: questionVersion.options?.map(option => option.optionText) || [],
       };
-      answer.userAnswer = item.selectedOptions?.length ? item.selectedOptions : item.textAnswer || "";
+      if (
+        item.selectedOptions?.length
+      ) {
+
+        const selectedOptionTexts =
+          questionVersion.options
+            .filter(
+              (
+                option
+              ) =>
+                item.selectedOptions?.includes(
+                  option.publicId
+                )
+            )
+            .map(
+              (
+                option
+              ) =>
+                option.optionText
+            )
+
+        answer.userAnswer =
+          selectedOptionTexts
+
+      } else {
+
+        answer.userAnswer =
+          item.textAnswer || ""
+      }
       answers.push(answer);
     }
 

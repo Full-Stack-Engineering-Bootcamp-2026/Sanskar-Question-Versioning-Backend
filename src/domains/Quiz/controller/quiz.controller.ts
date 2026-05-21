@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 import { CreateQuizDto } from "../dto/quiz.dto";
 import { generateResponse } from "../../../common/utils/response.util";
 import { HttpStatus } from "../../../common/constants/http-status.constants";
+import { UpdateQuizDto } from "../validator/quiz.validator";
 
 @Service()
 export class QuizController {
@@ -26,6 +27,29 @@ export class QuizController {
       message: "Quizzes Fetched Successfully",
       data: quizzes
     });
+  }
+  public async updateQuiz(
+    req: Request<
+      { publicId: string },
+      {},
+      UpdateQuizDto
+    >,
+
+    res: Response
+  ) {
+
+    const data =
+      await this.service.updateQuiz(
+        req.params.publicId,
+        req.body
+      )
+
+    return generateResponse(res, {
+      statusCode: HttpStatus.OK,
+      message:
+        "Quiz updated successfully",
+      data,
+    })
   }
 
   public async getQuizByPublicId(req: Request, res: Response) {
@@ -53,3 +77,4 @@ export class QuizController {
     })
   }
 }
+

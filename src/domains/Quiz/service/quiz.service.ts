@@ -2,6 +2,7 @@ import { Service } from "typedi";
 import { QuizRepository } from "../repository/quiz.repository";
 import { CreateQuizDto } from "../dto/quiz.dto";
 import { NotFoundException } from "../../../common/exceptions";
+import { UpdateQuizDto } from "../validator/quiz.validator";
 
 @Service()
 export class QuizService {
@@ -71,6 +72,62 @@ export class QuizService {
       publicId: quiz.publicId,
       title: quiz.title,
       questions
+    }
+  }
+  public async updateQuiz(
+    publicId: string,
+    data: UpdateQuizDto
+  ) {
+
+    const quiz =
+      await this.repository.findQuizByPublicId(
+        publicId
+      )
+
+    if (!quiz) {
+      throw new NotFoundException(
+        "Quiz not found"
+      )
+    }
+
+    const questions =
+      await this.repository.findQuestionsByPublicIds(
+        data.questionPublicIds
+      )
+
+    if (
+      questions.length !==
+      data.questionPublicIds.length
+    ) {
+      throw new NotFoundException(
+        "One or more questions not found"
+      )
+    }
+
+    await this.repository.updateQuiz(
+      quiz.id,
+      {
+        title: data.title,
+      }
+    )
+
+    await this.repository.deleteQuizQuestionMappings(
+      quiz.id
+    )
+
+    await this.repository.createQuizQuestionMappings(
+      {
+        quizId: quiz.id,
+        questions,
+      }
+    )
+
+    return {
+      publicId:
+        quiz.publicId,
+
+      title:
+        data.title,
     }
   }
 }

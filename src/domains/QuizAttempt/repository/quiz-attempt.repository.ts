@@ -42,7 +42,9 @@ export class QuizAttemptRepository {
       quiz: {
         id: data.quizId,
       },
-      attemptNumber: data.attemptNumber
+      attemptNumber: data.attemptNumber,
+      submittedAt:
+        new Date(),
     });
     return this.quizAttemptRepository.save(attempt);
   }
